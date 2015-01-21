@@ -1,0 +1,13 @@
+body {
+  background-color : blue;
+  text-align : center;
+}
+
+p {
+  font-size : 20px;
+}
+
+.clock {
+  font-size : 100px;
+  color : white;
+}
