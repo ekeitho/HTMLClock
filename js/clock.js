@@ -1,11 +1,10 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
 var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?";
 var interval;
-var location;
 
 $(document).ready(function() {
   	getTime();
-   getTemp();
+   getTemp(null);
   	setTimeout();
    getLocation();
 });
@@ -40,10 +39,13 @@ function getLocation() {
          $.ajax({
             url : geo_api,
             success : function(data) {
-               //location = "" + data['postalCodes'][0]['adminName2']
-               //      + ", " + data['postalCodes'][0]['adminCode1'];
-               //if okay call get temp with it's api
-               getTemp();
+               var loc = "" + data['postalCodes'][0]['adminName2'] + ", " + data['postalCodes'][0]['adminCode1'];
+
+               console.log(loc);
+
+               $('#forecastLabel').append("<p> (" + loc + ")</p>");
+
+               console.log('hmm');
             }
          });
 
@@ -54,19 +56,19 @@ function getLocation() {
    }
 }
 
-function getTemp() {
+/* api to ge the temperature */
+function getTemp(locat) {
 
    if (navigator.geolocation) {
       api = api + "35.300399,-120.662362?callback=?";
    }
 
+
 	$.getJSON(api, function(data) {
-      var label = "" + data['daily']['data'][0]['summary']
+      var label = "" + data['daily']['data'][0]['summary'];
       /* fixes the string (removes period from the end) label
          from api and inserts city and state name */
-      if (location.length > 0) {
-         //label = label.substring(0, label.indexOf(".")) + " in "+ location + ".";
-      }
+
       /* attach label to html */
       $('#forecastLabel').html("" + label);
       /* attach img src to html */
