@@ -68,7 +68,7 @@ function getTemp() {
          label = label.substring(0, label.indexOf(".")) + " in "+ location + ".";
       }
       /* attach label to html */
-      $('#forecastLabel').html(label);
+      $('#forecastLabel').html("" + label);
       /* attach img src to html */
       $('#forecastIcon').attr('src', 'img/' + data['daily']['data'][0]['icon'] + '.png');
 
