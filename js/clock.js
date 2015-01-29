@@ -41,12 +41,12 @@ function getLocation() {
             success : function(data) {
                console.log(data['postalCodes'][0]['adminName2']
                      + ", " + data['postalCodes'][0]['adminCode1']);
+               //if okay call get temp with it's api
+               getTemp();
             }
          });
 
          api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
-         //if okay call get temp with it's api
-         getTemp();
       }, function(error) {
          return 0;
       });
