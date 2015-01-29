@@ -1,4 +1,5 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
+var interval;
 
 $(document).ready(function() {
    getLocation();
@@ -17,7 +18,9 @@ function getTime() {
 }
 
 function setTimeout() {
-  setInterval(function() {
+  /* i want the id so that i can turn off interval in console
+     so i dont have the annoying blinking on the time */
+  interval = setInterval(function() {
     getTime()
   }, 1000);
 }
