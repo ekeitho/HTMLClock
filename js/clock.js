@@ -1,12 +1,17 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
+<<<<<<< HEAD
 var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?"
+=======
+var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?";
+var location = "";
+>>>>>>> cfc4acc2f52639c8452dc71c14e553e56c77eec6
 var interval;
 
 $(document).ready(function() {
-   getLocation();
   	getTime();
    getTemp();
   	setTimeout();
+   getLocation();
 });
 
 var options = {
@@ -62,7 +67,7 @@ function getTemp() {
    }
 
 	$.getJSON(api, function(data) {
-
+      
       $('#forecastLabel').html(data['daily']['data'][0]['summary']);
       $('#forecastIcon').attr('src', 'img/' + data['daily']['data'][0]['icon'] + '.png');
 
