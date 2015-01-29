@@ -40,12 +40,8 @@ function getLocation() {
             url : geo_api,
             success : function(data) {
                var loc = "" + data['postalCodes'][0]['adminName2'] + ", " + data['postalCodes'][0]['adminCode1'];
-
-               console.log(loc);
-
+               // append to the summary from the firs api
                $('#forecastLabel').append("<p> (" + loc + ")</p>");
-
-               console.log('hmm');
             }
          });
 
