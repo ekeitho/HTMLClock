@@ -1,5 +1,6 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
-var geo_api = "http://api.geonames.org/neighbourhoodJSON?"
+var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?";
+var location = "";
 var interval;
 
 $(document).ready(function() {
@@ -37,7 +38,8 @@ function getLocation() {
                      position.coords.longitude + "&username=ekeitho";
 
          $.getJSON(geo_api, function(response) {
-               console.log(response);
+            location = response['postalCodes']['adminName2'] + ", " +
+                                response['postalCodes']['adminCode1'];
          });
 
          api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
@@ -56,10 +58,7 @@ function getTemp() {
    }
 
 	$.getJSON(api, function(data) {
-
-      $('#forecastLabel').html
-
-      $('#forecastLabel').html(data['daily']['data'][0]['summary']);
+      $('#forecastLabel').html(data['daily']['data'][0]['summary'] + " " + location);
       $('#forecastIcon').attr('src', 'img/' + data['daily']['data'][0]['icon'] + '.png');
 
       var max = data['daily']['data'][0]['temperatureMax'];
