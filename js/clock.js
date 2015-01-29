@@ -65,7 +65,7 @@ function getTemp() {
       /* fixes the string (removes period from the end) label
          from api and inserts city and state name */
       if (location.length > 0) {
-         label = label.substring(0, label.indexOf(".")) + " in "+ location + ".";
+         //label = label.substring(0, label.indexOf(".")) + " in "+ location + ".";
       }
       /* attach label to html */
       $('#forecastLabel').html("" + label);
