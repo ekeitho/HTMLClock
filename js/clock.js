@@ -34,14 +34,14 @@ function getLocation() {
       navigator.geolocation.getCurrentPosition(function(position) {
 
 
-         geo_api += "lat=" + position.coords.latitude + "&lng=" +
+         geo_api = geo_api + "lat=" + position.coords.latitude + "&lng=" +
                      position.coords.longitude + "&username=ekeitho";
 
          $.ajax({
             url : geo_api,
             success : function(data) {
-               location = "" + data['postalCodes'][0]['adminName2']
-                     + ", " + data['postalCodes'][0]['adminCode1'];
+               //location = "" + data['postalCodes'][0]['adminName2']
+               //      + ", " + data['postalCodes'][0]['adminCode1'];
                //if okay call get temp with it's api
                getTemp();
             }
