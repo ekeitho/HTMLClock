@@ -1,4 +1,5 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
+var geo_api = "http://api.geonames.org/neighbourhoodJSON?"
 var interval;
 
 $(document).ready(function() {
@@ -31,8 +32,13 @@ function getLocation() {
    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
 
-         console.log(position.coords.latitude);
-         console.log(position.coords.longitude);
+
+         geo_api += "lat=" + position.coords.latitude + "&lng=" +
+                     position.coords.longitude + "&username=ekeitho";
+
+         $.getJSON(geo_api, function(response) {
+               console.log(response);
+         });
 
          api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
          //if okay call get temp with it's api
