@@ -1,5 +1,5 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
-var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?"
+var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?";
 var interval;
 
 $(document).ready(function() {
