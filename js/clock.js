@@ -1,5 +1,5 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
-var geo_api = "http://api.geonames.org/neighbourhoodJSON?"
+var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?"
 var interval;
 
 $(document).ready(function() {
@@ -36,8 +36,12 @@ function getLocation() {
          geo_api += "lat=" + position.coords.latitude + "&lng=" +
                      position.coords.longitude + "&username=ekeitho";
 
-         $.getJSON(geo_api, function(response) {
-               console.log(response);
+         $.ajax({
+            url : geo_api,
+            success : function(data) {
+               console.log(data['postalCodes'][0]['adminName2']
+                     + ", " + data['postalCodes'][0]['adminCode1']);
+            }
          });
 
          api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
@@ -56,8 +60,6 @@ function getTemp() {
    }
 
 	$.getJSON(api, function(data) {
-
-      $('#forecastLabel').html
 
       $('#forecastLabel').html(data['daily']['data'][0]['summary']);
       $('#forecastIcon').attr('src', 'img/' + data['daily']['data'][0]['icon'] + '.png');
