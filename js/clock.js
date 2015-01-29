@@ -4,10 +4,10 @@ var location = "";
 var interval;
 
 $(document).ready(function() {
-   getLocation();
   	getTime();
    getTemp();
   	setTimeout();
+   getLocation();
 });
 
 var options = {
@@ -37,14 +37,20 @@ function getLocation() {
          geo_api += "lat=" + position.coords.latitude + "&lng=" +
                      position.coords.longitude + "&username=ekeitho";
 
-         $.getJSON(geo_api, function(response) {
-            location = response['postalCodes']['adminName2'] + ", " +
-                                response['postalCodes']['adminCode1'];
-         });
+         $.ajax({
+            url : geo_api,
+            success : function (response) {
+               location = response['postalCodes']['adminName2'] + ", " +
+               response['postalCodes']['adminCode1'];
+               getTemp();
+            },
+            error: function (error) {
+               getTemp();
+            }
+         })
 
          api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
          //if okay call get temp with it's api
-         getTemp();
       }, function(error) {
          return 0;
       });
