@@ -1,4 +1,7 @@
+var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
+
 $(document).ready(function() {
+   getLocation();
   	getTime();
    getTemp();
   	setTimeout();
@@ -19,8 +22,29 @@ function setTimeout() {
   }, 1000);
 }
 
+function getLocation() {
+   api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
+
+   if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+
+         console.log(position.coords.latitude);
+         console.log(position.coords.longitude);
+
+         api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
+         //if okay call get temp with it's api
+         getTemp();
+      }, function(error) {
+         return 0;
+      });
+   }
+}
+
 function getTemp() {
-   var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/35.300399,-120.662362?callback=?";
+
+   if (navigator.geolocation) {
+      api = api + "35.300399,-120.662362?callback=?";
+   }
 
 	$.getJSON(api, function(data) {
 
