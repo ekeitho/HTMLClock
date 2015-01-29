@@ -1,6 +1,7 @@
 var api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
-var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?"
+var geo_api = "http://api.geonames.org/findNearbyPostalCodesJSON?";
 var interval;
+var location;
 
 $(document).ready(function() {
   	getTime();
@@ -39,8 +40,8 @@ function getLocation() {
          $.ajax({
             url : geo_api,
             success : function(data) {
-               console.log(data['postalCodes'][0]['adminName2']
-                     + ", " + data['postalCodes'][0]['adminCode1']);
+               location = data['postalCodes'][0]['adminName2']
+                     + ", " + data['postalCodes'][0]['adminCode1'];
                //if okay call get temp with it's api
                getTemp();
             }
@@ -60,12 +61,19 @@ function getTemp() {
    }
 
 	$.getJSON(api, function(data) {
-
-      $('#forecastLabel').html(data['daily']['data'][0]['summary']);
+      var label = data['daily']['data'][0]['summary']
+      /* fixes the string (removes period from the end) label
+         from api and inserts city and state name */
+      if (location.length > 0) {
+         label = label.substring(0, label.indexOf(".")) + " in "+ location + ".";
+      }
+      /* attach label to html */
+      $('#forecastLabel').html(label);
+      /* attach img src to html */
       $('#forecastIcon').attr('src', 'img/' + data['daily']['data'][0]['icon'] + '.png');
 
+      /* used to determine the background of the html page */
       var max = data['daily']['data'][0]['temperatureMax'];
-
       if (max < 60) {
          $('body').addClass('cold');
       } else if ( max >= 60) {
