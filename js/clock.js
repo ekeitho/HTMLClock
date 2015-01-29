@@ -41,7 +41,7 @@ function getLocation() {
             success : function(data) {
                var loc = "" + data['postalCodes'][0]['adminName2'] + ", " + data['postalCodes'][0]['adminCode1'];
                // append forcast to label
-               $('#forecastLabel').html("<p> (" + loc + ")</p>");
+               $('#forecastLabel').append("<p> (" + loc + ")</p>");
             }
          });
          /* set the new api for weather to be the long and latitude of the geolcation */
