@@ -24,8 +24,10 @@ function getTemp() {
 
 	$.getJSON(api, function(data) {
 
+      $('#forecastLabel').html
+
       $('#forecastLabel').html(data['daily']['data'][0]['summary']);
-      $('#forecastIcon').attr('src', '../img/' + data['daily']['data'][0]['icon']);
+      $('#forecastIcon').attr('src', 'img/' + data['daily']['data'][0]['icon'] + '.png');
 
       var max = data['daily']['data'][0]['temperatureMax'];
 
