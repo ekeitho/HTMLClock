@@ -36,6 +36,7 @@ function getLocation() {
          geo_api += "lat=" + position.coords.latitude + "&lng=" +
                      position.coords.longitude + "&username=ekeitho";
 
+         /*
          $.ajax({
             url : geo_api,
             success : function(data) {
@@ -45,6 +46,7 @@ function getLocation() {
                getTemp();
             }
          });
+         */
 
          api = api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
       }, function(error) {
