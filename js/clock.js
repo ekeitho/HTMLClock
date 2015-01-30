@@ -46,6 +46,7 @@ function getLocation() {
          });
          /* set the new api for weather to be the long and latitude of the geolcation */
          weather_api = weather_api + position.coords.latitude + "," + position.coords.longitude + "?callback=?";
+         /* call the getTemperature with the UNIQUE lat and long* */
          getTemp(weather_api);
       },
       /* if there is an error */
