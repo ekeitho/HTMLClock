@@ -29,6 +29,38 @@
 
 	<img id="forecastIcon"></img>
 
+	<div id="alarmContainer">
+		<div id="alarmHeader" class="flexable">
+			<h2>Alarms</h2>
+			<input type="button" value="Add Alarm" class="button"/>
+		</div>
+		<div id="alarms"></div>
+	</div>
+	
+	<div id="mask" class="hide"> </div>
+
+	<div id="popup" class="hide">
+    <h1>Add Alarm</h1>
+    <div id="timeContainer">
+        <select id="hours">
+            <option>01</option>
+            …
+        </select>
+        <select id="mins">
+            <option>00</option>
+            …
+        </select>
+        <select id="ampm">
+            <option>am</option>
+            <option>pm</option>
+        </select>
+    	</div>
+    	<input type="text" id="alarmName" placeholder="Alarm Name" />      
+    	<div class="flexable">
+        <input type="button" value="Cancel" class="button"/>
+        <input type="button" value="Save Alarm" class="button"/>
+   	</div>
+	</div>
 
 </body>
 
