@@ -2,6 +2,7 @@ var interval;
 var options = {
    hour: "2-digit", minute: "2-digit", second : "2-digit"
 };
+var alarm_results = []
 
 $(document).ready(function() {
   	getTime();
@@ -38,9 +39,30 @@ function getAllAlarms() {
    var query = new Parse.Query(AlarmObject);
    query.find({
       success: function(results) {
+         alarm_results = results;
          for (var i = 0; i < results.length; i++) {
             insertAlarm(results[i].get('time'), results[i].get('alarmName'));
          }
+         $(".flexable .delete").on('click', function() {
+            /* gets it's parents index to find where it is in the array
+               of alarm_results */
+            var index = $(this).parent().index();
+            var child = $(this).parent().get(index);
+
+            var alarm_obj = alarm_results[index];
+            alarm_obj.destroy({
+               success: function(myObject) {
+                  console.log("The object was deleted from the Parse Cloud.");
+                  /* remove from the array and used splice
+                     to keep ordering and fill any blank holes */
+                  alarm_results.splice(index, 1);
+                  child.remove();
+               },
+               error: function(myObject, error) {
+                  console.log("The delete failed with error: " + error);
+               }
+            });
+         });
       }
    });
 }
@@ -63,6 +85,10 @@ function addAlarm() {
             time,
             alarmName
          );
+         /* makes sure to update the array if the user adds an Alarm
+            since the user may need to delete an alarm that wasn't
+            requested from parse yet */
+         alarm_results.push(alarmObject);
          /* hide the window */
          hideAlarmPopup();
       }
@@ -78,10 +104,13 @@ function addAlarm() {
 function insertAlarm(time, alarmName) {
    var blank_div = $('<div></div>');
    blank_div.addClass('flexable');
+   blank_div.append("<img src='img/delete.png' class='delete'></img>");
    blank_div.append("<div class='name'>" + alarmName + " --> </div>");
    blank_div.append("<div class='time'>" + time);
 
    $("#alarms").append(blank_div);
+
+
 }
 
 /*
