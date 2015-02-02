@@ -7,6 +7,7 @@ $(document).ready(function() {
   	getTime();
   	setTimeout();
    getLocation();
+   getAllAlarms();
 
    /* button must be an immediate child to alarmHeader */
    $('#alarmHeader > .button').click(function() {
@@ -20,8 +21,8 @@ $(document).ready(function() {
 
    $("input[value='Save Alarm']").click(function() {
       addAlarm();
-      hideAlarmPopup();
    });
+
 });
 
 /*
@@ -46,12 +47,27 @@ function getAllAlarms() {
    Adds an alarm to the database;
 */
 function addAlarm() {
-   insertAlarm(
-      $('#hours option:selected').text(), //inesrt the hour
-      $('#mins option:selected').text(),
-      $('#ampm option:selected').text(),
-      $('#alarmName').val()
-   );
+   var hours = $('#hours option:selected').text();
+   var mins = $('#mins option:selected').text();
+   var ampm = $('#ampm option:selected').text();
+   var alarmName = $('#alarmName').val();
+   var time = hours + ":" + mins + " " + ampm;
+
+   var AlarmObject = Parse.Object.extend("Alarm");
+   var alarmObject = new AlarmObject();
+   alarmObject.save({"time": time,"alarmName": alarmName}, {
+      success: function(object) {
+         /* insert alarm */
+         insertAlarm(
+            hours,
+            mins,
+            ampm,
+            alarmName
+         );
+         /* hide the window */
+         hideAlarmPopup();
+      }
+   });
 }
 
 /*
@@ -79,7 +95,6 @@ function hideAlarmPopup() {
    shows the alarm popup window after clicking 'Add Alarm'
 */
 function showAlarmPopup() {
-   console.log("hello");
    $('#mask').removeClass('hide');
    $('#popup').removeClass('hide');
 }
