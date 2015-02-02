@@ -5,7 +5,7 @@ $(document).ready(function() {
   	setTimeout();
    getLocation();
 
-   $('alarmHeader > button').click(function() {
+   $('#alarmHeader > .button').click(function() {
       showAlarmPopup();
    });
 
