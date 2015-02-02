@@ -31,6 +31,7 @@ $(document).ready(function() {
 function getAllAlarms() {
    Parse.initialize("0dEHWr1vjV8ACuIySubn1TQaKPvu0StNAVusDvRE", "ZJ3I6e1IdJ2A2BqcusPxY9V8Sbg6VVj4JZASxggr");
    var AlarmObject = Parse.Object.extend("Alarm");
+
    /* this says that for results that are coming back
       you can treate all the items as alarm objects
       as seen below with '.time' and '.alarmName'   */
@@ -38,7 +39,7 @@ function getAllAlarms() {
    query.find({
       success: function(results) {
          for (var i = 0; i < results.length; i++) {
-            insertAlarm(results[i].time, results[i].alarmName);
+            insertAlarm(results[i].get('time'), results[i].get('alarmName'));
          }
       }
    });
@@ -59,9 +60,7 @@ function addAlarm() {
       success: function(object) {
          /* insert alarm */
          insertAlarm(
-            hours,
-            mins,
-            ampm,
+            time,
             alarmName
          );
          /* hide the window */
@@ -72,13 +71,15 @@ function addAlarm() {
 
 /*
    helper method to insert items from input into a nice div
+   note: according to step 3 in adding parse, we could also have
+         insert alarm with two params from time and alarmName
 */
 
-function insertAlarm(hours, mins, ampm, alarmName) {
+function insertAlarm(time, alarmName) {
    var blank_div = $('<div></div>');
    blank_div.addClass('flexable');
    blank_div.append("<div class='name'>" + alarmName + " --> </div>");
-   blank_div.append("<div class='time'>" + hours + ":" + mins + " " + ampm);
+   blank_div.append("<div class='time'>" + time);
 
    $("#alarms").append(blank_div);
 }
