@@ -4,11 +4,28 @@ $(document).ready(function() {
   	getTime();
   	setTimeout();
    getLocation();
+
+   $('alarmHeader > button').click(function() {
+      showAlarmPopup();
+   });
+
 });
 
 var options = {
   hour: "2-digit", minute: "2-digit", second : "2-digit"
 };
+
+/*
+showAlarmPopup - no parameters
+Use jQuery to select the mask div and removes the hide class.
+Use jQuery to select the popup div and removes the hide class.
+Set the onclick property to showAlarmPopup() in the index.html file for the Add Alarm button.
+*/
+
+function showAlarmPopup() {
+   $('mask').removeClass('hide');
+   $('popup').removeClass('hide');
+}
 
 function getTime() {
     var date = new Date();
