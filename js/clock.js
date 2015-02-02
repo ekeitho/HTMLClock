@@ -43,27 +43,33 @@ function getAllAlarms() {
          for (var i = 0; i < results.length; i++) {
             insertAlarm(results[i].get('time'), results[i].get('alarmName'));
          }
-         $(".flexable .delete").on('click', function() {
-            /* gets it's parents index to find where it is in the array
-               of alarm_results */
-            var index = $(this).parent().index();
-            var child = $(this).parent().get(index);
-
-            var alarm_obj = alarm_results[index];
-            alarm_obj.destroy({
-               success: function(myObject) {
-                  console.log("The object was deleted from the Parse Cloud.");
-                  /* remove from the array and used splice
-                     to keep ordering and fill any blank holes */
-                  alarm_results.splice(index, 1);
-                  child.remove();
-               },
-               error: function(myObject, error) {
-                  console.log("The delete failed with error: " + error);
-               }
-            });
-         });
+         setDelete();
       }
+   });
+}
+
+function setDelete() {
+   $(".flexable .delete").on('click', function() {
+      /* gets it's parents index to find where it is in the array
+      of alarm_results */
+      var index = $(this).parent().index();
+      var child = $(this).parent().get(index);
+
+      var alarm_obj = alarm_results[index];
+      alarm_obj.destroy({
+         success: function(myObject) {
+            console.log("The object was deleted from the Parse Cloud.");
+            /* remove from the array and used splice
+            to keep ordering and fill any blank holes */
+            alarm_results.splice(index, 1);
+            /* make sure to remove the element from the page */
+            child.remove();
+         },
+         error: function(myObject, error) {
+            /* something happened - uh oh */
+            console.log("The delete failed with error: " + error);
+         }
+      });
    });
 }
 /*
@@ -89,6 +95,8 @@ function addAlarm() {
             since the user may need to delete an alarm that wasn't
             requested from parse yet */
          alarm_results.push(alarmObject);
+         /* sets alarm delete to make sure it notices the new item added */
+         setDelete();
          /* hide the window */
          hideAlarmPopup();
       }
