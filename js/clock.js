@@ -23,8 +23,9 @@ Set the onclick property to showAlarmPopup() in the index.html file for the Add 
 */
 
 function showAlarmPopup() {
-   $('mask').removeClass('hide');
-   $('popup').removeClass('hide');
+   console.log("hello");
+   $('#mask').removeClass('hide');
+   $('#popup').removeClass('hide');
 }
 
 function getTime() {
@@ -69,11 +70,11 @@ function getLocation() {
       /* if there is an error */
       function(error) {
          // return for default lng and lat
-         getTemp(api + "35.300399,-120.662362?callback=?");
+         getTemp(weather_api + "35.300399,-120.662362?callback=?");
       });
    } else {
       // return default lng and lat
-      getTemp(api + "35.300399,-120.662362?callback=?");
+      getTemp(weather_api + "35.300399,-120.662362?callback=?");
    }
 }
 
