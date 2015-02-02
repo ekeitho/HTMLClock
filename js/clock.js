@@ -1,4 +1,7 @@
 var interval;
+var options = {
+   hour: "2-digit", minute: "2-digit", second : "2-digit"
+};
 
 $(document).ready(function() {
   	getTime();
@@ -21,16 +24,26 @@ $(document).ready(function() {
    });
 });
 
-var options = {
-  hour: "2-digit", minute: "2-digit", second : "2-digit"
-};
-
 /*
-Create 4 local variables (hours, mins, ampm, and alarmName) to capture the Alarm values from the popup.
-   $("#hours option:selected").text(); will get the hour value.
-      Call insertAlarm(hours, mins, ampm, alarmName);
-      Call hideAlarmPopup();
-      Set the onclick property to addAlarm() in the index.html file for the Set Alarm button.
+   Gets all the alarms from the Parse database
+*/
+function getAllAlarms() {
+   Parse.initialize("0dEHWr1vjV8ACuIySubn1TQaKPvu0StNAVusDvRE", "ZJ3I6e1IdJ2A2BqcusPxY9V8Sbg6VVj4JZASxggr");
+   var AlarmObject = Parse.Object.extend("Alarm");
+   /* this says that for results that are coming back
+      you can treate all the items as alarm objects
+      as seen below with '.time' and '.alarmName'   */
+   var query = new Parse.Query(AlarmObject);
+   query.find({
+      success: function(results) {
+         for (var i = 0; i < results.length; i++) {
+            insertAlarm(results[i].time, results[i].alarmName);
+         }
+      }
+   });
+}
+/*
+   Adds an alarm to the database;
 */
 function addAlarm() {
    insertAlarm(
@@ -42,13 +55,7 @@ function addAlarm() {
 }
 
 /*
-insertAlarm - 4 parameters: hours, mins, ampm, and alarmName.
-   Use jQuery to create a new blank div, $("<div>").
-   Add the class flexable to the new blank div.
-      Use the jQuery append() method to add 2 more div elements within the new flexable div.
-   Set the class to name and html to the alarmName variable.
-   Set the class to time and html to the concatenation of hours, colon, mins, ampm variables.
-      Use the append()method to add the blank div to $("#alarms").
+   helper method to insert items from input into a nice div
 */
 
 function insertAlarm(hours, mins, ampm, alarmName) {
@@ -60,22 +67,34 @@ function insertAlarm(hours, mins, ampm, alarmName) {
    $("#alarms").append(blank_div);
 }
 
+/*
+   adds a hide class to remove popup window
+*/
 function hideAlarmPopup() {
    $('#mask').addClass('hide');
    $('#popup').addClass('hide');
 }
 
+/*
+   shows the alarm popup window after clicking 'Add Alarm'
+*/
 function showAlarmPopup() {
    console.log("hello");
    $('#mask').removeClass('hide');
    $('#popup').removeClass('hide');
 }
 
+/*
+   gets the current time of the users machience
+*/
 function getTime() {
     var date = new Date();
     $(".clock").html("<p> " + date.toLocaleTimeString("en-us", options) + "</p>");
 }
 
+/*
+   set an interval for every 1 second and update the clock
+*/
 function setTimeout() {
   /* i want the id so that i can turn off interval in console
      so i dont have the annoying blinking on the time */
@@ -84,7 +103,9 @@ function setTimeout() {
   }, 1000);
 }
 
-
+/*
+   gets the location of the user if the reqest from the user was a success
+*/
 function getLocation() {
    /* start of the weather api */
    var weather_api = "https://api.forecast.io/forecast/d472859494062b7bddec5d4602dc98a7/";
