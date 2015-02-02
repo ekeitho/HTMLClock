@@ -5,10 +5,20 @@ $(document).ready(function() {
   	setTimeout();
    getLocation();
 
+   /* button must be an immediate child to alarmHeader */
    $('#alarmHeader > .button').click(function() {
       showAlarmPopup();
    });
 
+   /* found another cool way to select an element */
+   $("input[value=Cancel]").click(function() {
+      hideAlarmPopup();
+   });
+
+   $("input[value='Save Alarm']").click(function() {
+      addAlarm();
+      hideAlarmPopup();
+   });
 });
 
 var options = {
@@ -16,11 +26,44 @@ var options = {
 };
 
 /*
-showAlarmPopup - no parameters
-Use jQuery to select the mask div and removes the hide class.
-Use jQuery to select the popup div and removes the hide class.
-Set the onclick property to showAlarmPopup() in the index.html file for the Add Alarm button.
+Create 4 local variables (hours, mins, ampm, and alarmName) to capture the Alarm values from the popup.
+   $("#hours option:selected").text(); will get the hour value.
+      Call insertAlarm(hours, mins, ampm, alarmName);
+      Call hideAlarmPopup();
+      Set the onclick property to addAlarm() in the index.html file for the Set Alarm button.
 */
+function addAlarm() {
+   insertAlarm(
+      $('#hours option:selected').text(), //inesrt the hour
+      $('#mins option:selected').text(),
+      $('#ampm option:selected').text(),
+      $('#alarmName').val()
+   );
+}
+
+/*
+insertAlarm - 4 parameters: hours, mins, ampm, and alarmName.
+   Use jQuery to create a new blank div, $("<div>").
+   Add the class flexable to the new blank div.
+      Use the jQuery append() method to add 2 more div elements within the new flexable div.
+   Set the class to name and html to the alarmName variable.
+   Set the class to time and html to the concatenation of hours, colon, mins, ampm variables.
+      Use the append()method to add the blank div to $("#alarms").
+*/
+
+function insertAlarm(hours, mins, ampm, alarmName) {
+   var blank_div = $('<div></div>');
+   blank_div.addClass('flexable');
+   blank_div.append("<div class='name'>" + alarmName + " --> </div>");
+   blank_div.append("<div class='time'>" + hours + ":" + mins + " " + ampm);
+
+   $("#alarms").append(blank_div);
+}
+
+function hideAlarmPopup() {
+   $('#mask').addClass('hide');
+   $('#popup').addClass('hide');
+}
 
 function showAlarmPopup() {
    console.log("hello");
@@ -40,6 +83,7 @@ function setTimeout() {
     getTime()
   }, 1000);
 }
+
 
 function getLocation() {
    /* start of the weather api */
