@@ -2,7 +2,7 @@ var interval;
 var options = {
    hour: "2-digit", minute: "2-digit", second : "2-digit"
 };
-var alarm_results = []
+var alarm_results = [];
 
 $(document).ready(function() {
   	getTime();
@@ -190,9 +190,6 @@ function getLocation() {
 
 /* api to ge the temperature */
 function getTemp(locat) {
-
-   console.log("here");
-
 	$.getJSON(locat, function(data) {
       var label = "" + data['daily']['data'][0]['summary'];
       /* fixes the string (removes period from the end) label
