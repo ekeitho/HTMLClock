@@ -85,7 +85,7 @@ function fireAlarm() {
             redirect_uri: 'http://ec2-54-149-12-242.us-west-2.compute.amazonaws.com/staging/callback.html',
          });
 
-         SC.stream("/nickraymondg/ella-henderson-ghost-oliver-nelson-remix", function(sound){
+         SC.stream("/tracks/293", function(sound){
             sound.play();
          });
 
