@@ -5,10 +5,12 @@ var options = {
 var alarm_results = [];
 
 $(document).ready(function() {
+
   	getTime();
-  	setTimeout();
+  	setTimeoutC();
    getLocation();
    getAllAlarms();
+
 
    /* button must be an immediate child to alarmHeader */
    $('#alarmHeader > .button').click(function() {
@@ -24,7 +26,73 @@ $(document).ready(function() {
       addAlarm();
    });
 
+
+
 });
+
+
+
+function fireAlarm() {
+   $.each(alarm_results, function(index, value) {
+      /* example: 1:00 am */
+      var time_string = value.get('time');
+      var arr_split = time_string.split(':');
+      var hour = parseInt(arr_split[0]);
+      /* found out that it can parse an int for example '03' to 3
+      through practice, how cool */
+      var min = parseInt(arr_split[1].slice(0,2));
+
+      /* example: 1:00 am
+         splits space between 0 and am
+          ==> am = 0, pm = 1 */
+      var AMorPM = arr_split[1].split(" ")[1] == "am" ? 0 : 1;
+
+      /* date for alarm setting */
+      var date = new Date();
+      var dateHours = date.getHours();
+      /* set for am or pm first
+         since get hours returns in 24 hour format
+         */
+      var dateAMorPM = dateHours > 12 ? 1 : 0;
+
+      /* getting ready for alarm calculation */
+      if (AMorPM == 1) {
+         hour += 12;
+      }
+
+      // probably doesn't work for all cases- doing OS -__-
+      var hour_diff = dateHours - hour;
+      var min_diff = date.getMinutes() - min;
+      /* if the date minute is less than the users alarm minute
+         then we must just get the absolute value of the difference */
+      if (min_diff < 0) {
+         min_diff *= -1;
+      }
+
+      console.log("Min diff is " + min_diff);
+
+      var milliCount = 0;
+      milliCount = hour_diff * 3600000;
+      milliCount += min_diff * 60000;
+
+
+      console.log(milliCount);
+
+      setTimeout(function() {
+         alert("Alarm clock has gone off!!");
+         SC.initialize({
+            client_id: '82f31c2903e5032ae74bc5c17d82d63c'
+         });
+
+         var track_url = 'https://soundcloud.com/forss/flickermood';
+         SC.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
+            console.log('oEmbed response: ' + oEmbed);
+         });
+
+      }, 1000);
+
+   });
+}
 
 /*
    Gets all the alarms from the Parse database
@@ -44,6 +112,10 @@ function getAllAlarms() {
             insertAlarm(results[i].get('time'), results[i].get('alarmName'));
          }
          setDelete();
+         fireAlarm();
+      },
+      error: function() {
+         //fireAlarm();
       }
    });
 }
@@ -95,7 +167,8 @@ function addAlarm() {
             since the user may need to delete an alarm that wasn't
             requested from parse yet */
          alarm_results.push(alarmObject);
-         /* sets alarm delete to make sure it notices the new item added */
+         /* sets alarm delete atrribute to make sure
+            it notices the new item added */
          setDelete();
          /* hide the window */
          hideAlarmPopup();
@@ -148,7 +221,7 @@ function getTime() {
 /*
    set an interval for every 1 second and update the clock
 */
-function setTimeout() {
+function setTimeoutC() {
   /* i want the id so that i can turn off interval in console
      so i dont have the annoying blinking on the time */
   interval = setInterval(function() {
