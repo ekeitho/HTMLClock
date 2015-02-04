@@ -80,7 +80,7 @@ function fireAlarm() {
 
       setTimeout(function() {
          alert("Alarm clock has gone off!!");
-         SC.initialize({
+         var SC = SC.initialize({
             client_id: '82f31c2903e5032ae74bc5c17d82d63c'
          });
 
