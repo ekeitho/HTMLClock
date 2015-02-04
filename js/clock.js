@@ -85,13 +85,14 @@ function fireAlarm() {
             redirect_uri: 'http://ec2-54-149-12-242.us-west-2.compute.amazonaws.com/staging/callback.html',
          });
 
-         SC.stream("/the-concept-band/goldrushed-mastered", {
-            autoPlay: true,
-            ontimedcomments: function(comments){
-               console.log(comments[0].body);
-            }
+         SC.connect(function() {
+            SC.stream("/tracks/293", {
+               autoPlay: true,
+               ontimedcomments: function(comments){
+                  console.log(comments[0].body);
+               }
+            });
          });
-
       }, 1000);
 
    });
