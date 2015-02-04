@@ -80,20 +80,8 @@ function fireAlarm() {
 
       setTimeout(function() {
          alert("Alarm clock has gone off!!");
-         SC.initialize({
-            client_id: '82f31c2903e5032ae74bc5c17d82d63c',
-            redirect_uri: 'http://ec2-54-149-12-242.us-west-2.compute.amazonaws.com/staging/callback.html',
-         });
 
-         SC.connect(function() {
-            SC.stream("/tracks/293", {
-               autoPlay: true,
-               ontimedcomments: function(comments){
-                  console.log(comments[0].body);
-               }
-            });
-         });
-      }, 1000);
+      }, milliCount);
 
    });
 }
