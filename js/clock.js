@@ -85,8 +85,11 @@ function fireAlarm() {
             redirect_uri: 'http://ec2-54-149-12-242.us-west-2.compute.amazonaws.com/staging/callback.html',
          });
 
-         SC.stream("/tracks/293", function(sound){
-            sound.play();
+         SC.stream("/tracks/293", {
+            autoPlay: true,
+            ontimedcomments: function(comments){
+               console.log(comments[0].body);
+            }
          });
 
       }, 1000);
