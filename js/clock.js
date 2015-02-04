@@ -80,13 +80,12 @@ function fireAlarm() {
 
       setTimeout(function() {
          alert("Alarm clock has gone off!!");
-         var ic = SC.initialize({
+         SC.initialize({
             client_id: '82f31c2903e5032ae74bc5c17d82d63c'
          });
 
-         var track_url = 'https://soundcloud.com/forss/flickermood';
-         ic.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
-            console.log('oEmbed response: ' + oEmbed);
+         SC.stream("/nickraymondg/ella-henderson-ghost-oliver-nelson-remix", function(sound){
+            sound.play();
          });
 
       }, 1000);
