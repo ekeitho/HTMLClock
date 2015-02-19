@@ -9,6 +9,7 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         testAPI();
+        $('.button').removeAttr('display');
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         document.getElementById('status').innerHTML = 'Please log ' +
@@ -18,6 +19,7 @@ function statusChangeCallback(response) {
         // they are logged into this app or not.
         document.getElementById('status').innerHTML = 'Please log ' +
             'into Facebook.';
+            $('.button').css('display', 'none');
     }
 }
 
@@ -39,9 +41,6 @@ window.fbAsyncInit = function() {
 
 
     FB.getLoginStatus(function(response) {
-        if(response.status == 'connected') {
-          $('.button').removeAttr('display');
-        }
         statusChangeCallback(response);
     });
 };
