@@ -6,6 +6,9 @@ var alarm_results = [];
 
 $(document).ready(function() {
 
+  Parse.initialize("0dEHWr1vjV8ACuIySubn1TQaKPvu0StNAVusDvRE",
+    "ZJ3I6e1IdJ2A2BqcusPxY9V8Sbg6VVj4JZASxggr");
+    
    getTime();
    setTimeoutC();
    getLocation();
@@ -95,7 +98,6 @@ function fireAlarm() {
    Gets all the alarms from the Parse database
 */
 function getAllAlarms() {
-   Parse.initialize("0dEHWr1vjV8ACuIySubn1TQaKPvu0StNAVusDvRE", "ZJ3I6e1IdJ2A2BqcusPxY9V8Sbg6VVj4JZASxggr");
    var AlarmObject = Parse.Object.extend("Alarm");
 
    /* this says that for results that are coming back
