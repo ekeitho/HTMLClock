@@ -9,12 +9,12 @@ $(document).ready(function() {
    getTime();
    setTimeoutC();
    getLocation();
-   
+
    FB.getLoginStatus(function(response) {
      if (response.status == 'connected') {
        getAllAlarms();
      }
-   }
+   });
 
 
    /* button must be an immediate child to alarmHeader */
