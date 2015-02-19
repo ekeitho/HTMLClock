@@ -159,7 +159,7 @@ function addAlarm() {
 
        var AlarmObject = Parse.Object.extend("Alarm");
        var alarmObject = new AlarmObject();
-       alarmObject.save({"fb_user_id": response['authResponse']['userID',
+       alarmObject.save({"fb_user_id": response['authResponse']['userID'],
                             "time": time,"alarmName": alarmName}, {
           success: function(object) {
              /* insert alarm */
