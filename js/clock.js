@@ -96,20 +96,28 @@ function getAllAlarms() {
    /* this says that for results that are coming back
       you can treate all the items as alarm objects
       as seen below with '.time' and '.alarmName'   */
+
+
    var query = new Parse.Query(AlarmObject);
-   query.find({
-      success: function(results) {
-         alarm_results = results;
-         for (var i = 0; i < results.length; i++) {
-            insertAlarm(results[i].get('time'), results[i].get('alarmName'));
-         }
-         setDelete();
-         fireAlarm();
-      },
-      error: function() {
-         //fireAlarm();
-      }
+   FB.getLoginStatus(function(response) {
+     if (response.status === 'connected') {
+       query.equalTo("fb_user_id", response['authResponse']['userID']);
+       query.find({
+          success: function(results) {
+             alarm_results = results;
+             for (var i = 0; i < results.length; i++) {
+                insertAlarm(results[i].get('time'), results[i].get('alarmName'));
+             }
+             setDelete();
+             fireAlarm();
+          },
+          error: function() {
+             //fireAlarm();
+          }
+       });
+     }
    });
+
 }
 
 function setDelete() {
@@ -147,30 +155,32 @@ function addAlarm() {
    var time = hours + ":" + mins + " " + ampm;
 
    FB.getLoginStatus(function(response) {
-       console.log("INSIDE CLOCK " + response['authResponse']['userID']);
-       statusChangeCallback(response);
+     if (response.status === 'connected') {
+
+       var AlarmObject = Parse.Object.extend("Alarm");
+       var alarmObject = new AlarmObject();
+       alarmObject.save({"fb_user_id": response['authResponse']['userID',
+                            "time": time,"alarmName": alarmName}, {
+          success: function(object) {
+             /* insert alarm */
+             insertAlarm(
+                time,
+                alarmName
+             );
+             /* makes sure to update the array if the user adds an Alarm
+                since the user may need to delete an alarm that wasn't
+                requested from parse yet */
+             alarm_results.push(alarmObject);
+             /* sets alarm delete atrribute to make sure
+                it notices the new item added */
+             setDelete();
+             /* hide the window */
+             hideAlarmPopup();
+          }
+       });
+     }
    });
 
-   var AlarmObject = Parse.Object.extend("Alarm");
-   var alarmObject = new AlarmObject();
-   alarmObject.save({"time": time,"alarmName": alarmName}, {
-      success: function(object) {
-         /* insert alarm */
-         insertAlarm(
-            time,
-            alarmName
-         );
-         /* makes sure to update the array if the user adds an Alarm
-            since the user may need to delete an alarm that wasn't
-            requested from parse yet */
-         alarm_results.push(alarmObject);
-         /* sets alarm delete atrribute to make sure
-            it notices the new item added */
-         setDelete();
-         /* hide the window */
-         hideAlarmPopup();
-      }
-   });
 }
 
 /*
