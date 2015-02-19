@@ -18,13 +18,6 @@ $(document).ready(function() {
     /* get location of user */
     getLocation();
 
-    /* get alarm clock(s) from parse on a successful response */
-    FB.getLoginStatus(function(response) {
-        if (response.status == 'connected') {
-            getAllAlarms();
-        }
-    });
-
 });
 
 
