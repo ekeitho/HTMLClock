@@ -6,8 +6,8 @@ var alarm_results = [];
 
 $(document).ready(function() {
 
-  	getTime();
-  	setTimeoutC();
+   getTime();
+   setTimeoutC();
    getLocation();
    getAllAlarms();
 
@@ -145,6 +145,11 @@ function addAlarm() {
    var ampm = $('#ampm option:selected').text();
    var alarmName = $('#alarmName').val();
    var time = hours + ":" + mins + " " + ampm;
+
+   FB.getLoginStatus(function(response) {
+       console.log("INSIDE CLOCK " + response['authResponse']['userID']);
+       statusChangeCallback(response);
+   });
 
    var AlarmObject = Parse.Object.extend("Alarm");
    var alarmObject = new AlarmObject();
