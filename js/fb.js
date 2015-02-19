@@ -10,7 +10,6 @@ function statusChangeCallback(response) {
         // Logged into your app and Facebook.
         testAPI();
         $('.button').css('display', 'initial');
-        console.log("here");
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         document.getElementById('status').innerHTML = 'Please log ' +
@@ -20,7 +19,9 @@ function statusChangeCallback(response) {
         // they are logged into this app or not.
         document.getElementById('status').innerHTML = 'Please log ' +
             'into Facebook.';
-            $('.button').css('display', 'none');
+            
+        $('.button').css('display', 'none');
+        console.log("here");
     }
 }
 
