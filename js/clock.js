@@ -142,6 +142,8 @@ function addAlarm() {
     var alarmName = $('#alarmName').val();
     var time = hours + ":" + mins + " " + ampm;
 
+    console.log("Once?");
+
     FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
 
