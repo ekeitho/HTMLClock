@@ -38,6 +38,7 @@ window.fbAsyncInit = function() {
     });
 
     FB.getLoginStatus(function(response) {
+        console.log(response['authResponse']['userID']);
         statusChangeCallback(response);
     });
 };
