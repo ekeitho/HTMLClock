@@ -9,8 +9,8 @@ $(document).ready(function() {
    getTime();
    setTimeoutC();
    getLocation();
-
-   FB.getLoginStatus(function(response)) {
+   
+   FB.getLoginStatus(function(response) {
      if (response.status == 'connected') {
        getAllAlarms();
      }
