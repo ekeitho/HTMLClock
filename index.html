@@ -17,10 +17,6 @@
         Clock Master
     </p>
 
-    <fb:login-button auto_logout_link="true" scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
-
-
     <br>
     <br>
     <h1 class="clock"></h1>
@@ -74,6 +70,11 @@
             <input type="button" value="Cancel" class="button" />
             <input type="button" value="Save Alarm" class="button" />
         </div>
+        <fb:login-button
+            auto_logout_link="true"
+            scope="public_profile,email"
+            onlogin="checkLoginState();">
+        </fb:login-button>
     </div>
 
     <!-- put scripts below so page loads quicker -->
