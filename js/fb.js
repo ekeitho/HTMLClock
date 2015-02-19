@@ -38,7 +38,7 @@ function statusChangeCallback(response) {
         $('.button').css('display', 'none');
 
         /* remove any text from past alarms */
-        $('.flexable').empty();
+        $('#alarms').empty();
     }
 }
 
