@@ -135,6 +135,10 @@
                 xfbml: true,
                 version: 'v2.2'
             });
+
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
         };
 
 
@@ -150,9 +154,7 @@
         //
         // These three cases are handled in the callback function.
 
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
+
 
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
