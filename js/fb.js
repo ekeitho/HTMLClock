@@ -37,8 +37,11 @@ window.fbAsyncInit = function() {
         version: 'v2.2'
     });
 
+
     FB.getLoginStatus(function(response) {
-        console.log(response['authResponse']['userID']);
+        if(response.status == 'connected') {
+          $('.button').removeAttr('display');
+        }
         statusChangeCallback(response);
     });
 };
