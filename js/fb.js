@@ -33,8 +33,12 @@ function statusChangeCallback(response) {
         $('.button').css('display', 'none');
     } else {
         /* on log out */
+
         /* hide the button */
         $('.button').css('display', 'none');
+
+        /* remove any text from past alarms */
+        $('.flexable').empty();
     }
 }
 
