@@ -18,6 +18,20 @@ $(document).ready(function() {
     /* get location of user */
     getLocation();
 
+    /* button must be an immediate child to alarmHeader */
+    $('#alarmHeader > .button').click(function() {
+        showAlarmPopup();
+    });
+
+    /* found another cool way to select an element */
+    $("input[value=Cancel]").click(function() {
+        hideAlarmPopup();
+    });
+
+    $("input[value='Save Alarm']").click(function() {
+        addAlarm();
+    });
+
 });
 
 

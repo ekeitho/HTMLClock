@@ -6,26 +6,9 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         testAPI();
-        /* unhide the button */
-        $('.button').css('display', 'initial');
 
         /* sync the alarms from parse - if any */
         getAllAlarms();
-
-        /* button must be an immediate child to alarmHeader */
-        $('#alarmHeader > .button').click(function() {
-            showAlarmPopup();
-        });
-
-        /* found another cool way to select an element */
-        $("input[value=Cancel]").click(function() {
-            hideAlarmPopup();
-        });
-
-        $("input[value='Save Alarm']").click(function() {
-            addAlarm();
-        });
-
 
 
     } else if (response.status === 'not_authorized') {
