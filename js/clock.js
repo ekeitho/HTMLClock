@@ -18,6 +18,13 @@ $(document).ready(function() {
   /* get location of user */
   getLocation();
 
+  /* initialize imgur auth */
+  initImgur({
+    "client_id": "610501e5f508944",
+    "type": "token",
+    "callback_function": ""
+  });
+
   /* button must be an immediate child to alarmHeader */
   $('#alarmHeader > .button').click(function() {
     showAlarmPopup();
@@ -36,7 +43,6 @@ $(document).ready(function() {
   });
 
 });
-
 
 
 function fireAlarm() {
