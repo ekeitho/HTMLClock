@@ -17,6 +17,12 @@
         Clock Master
     </p>
 
+    <fb:login-button
+        auto_logout_link="true"
+        scope="public_profile,email"
+        onlogin="checkLoginState();">
+    </fb:login-button>
+
     <h1 class="clock"></h1>
 
     <div id="forecastLabel"></div>
@@ -29,13 +35,10 @@
             <input type="button" value="Add Alarm" class="button" />
         </div>
         <div id="alarms"></div>
-        <fb:login-button
-            auto_logout_link="true"
-            scope="public_profile,email"
-            onlogin="checkLoginState();">
-        </fb:login-button>
+
         <button class="imgur_auth"> Imgur </button>
     </div>
+
 
     <div id="mask" class="hide"> </div>
 
